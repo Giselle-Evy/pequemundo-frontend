@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  --color-peque-sky: #4FC3F7;
+  --color-peque-yellow: #FFD54F;
+  --color-peque-green: #81C784;
+  --color-peque-coral: #FF8A65;
+  --color-peque-purple: #BA68C8;
+  --font-family-peque: 'Nunito', 'Baloo 2', system-ui, sans-serif;
+  --font-family-baloo: 'Baloo 2', cursive, sans-serif;
+  --font-family-fredoka: 'Fredoka', cursive, sans-serif;
+}
+
+body {
+  font-family: var(--font-family-peque);
+  background-color: #F0F9FF;
+  color: #1F2937;
+  overflow-x: hidden;
+}
+
+/* Letras estilo plastilina 3D */
+.clay-letter {
+  display: inline-block;
+  position: relative;
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.14)) drop-shadow(0 6px 8px rgba(0, 0, 0, 0.1));
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.clay-letter:hover {
+  transform: translateY(-4px) scale(1.1) rotate(-3deg);
+}
+
+/* Animaciones */
+@keyframes floatingMascot {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  35% { transform: translateY(-7px) rotate(3deg) scale(1.03); }
+  70% { transform: translateY(-3px) rotate(-3deg) scale(0.98); }
+}
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.025); filter: brightness(1.04); }
+}
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.25) rotate(45deg); filter: drop-shadow(0 0 6px rgba(255,223,0,0.9)); }
+}
+@keyframes floatCloudsSlow {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(115vw); }
+}
+@keyframes floatBalloonsUp {
+  0% { transform: translateY(105vh) rotate(-2deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { transform: translateY(-25vh) rotate(8deg); opacity: 0; }
+}
+@keyframes butterflyDrift {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(18px, -24px) scale(1.05) rotate(12deg); }
+  50% { transform: translate(-12px, -50px) scale(0.95) rotate(-10deg); }
+  75% { transform: translate(24px, -78px) scale(1.03) rotate(14deg); }
+  100% { transform: translate(0px, -100px) scale(1) rotate(-2deg); }
+}
+@keyframes shimmerHalo {
+  0%, 100% { opacity: 0.45; transform: scale(0.95); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+.mascot-bounce { animation: floatingMascot 4.8s ease-in-out infinite; }
+.cta-bounce-pro { animation: gentlePulse 2.6s ease-in-out infinite; }
+.twinkle-star { animation: sparkleTwinkle 2.8s ease-in-out infinite; }
+.cloud-anim-1 { animation: floatCloudsSlow 48s linear infinite; }
+.cloud-anim-2 { animation: floatCloudsSlow 62s linear infinite -22s; }
+.cloud-anim-3 { animation: floatCloudsSlow 54s linear infinite -11s; }
+.balloon-anim-1 { animation: floatBalloonsUp 28s linear infinite 1s; }
+.balloon-anim-2 { animation: floatBalloonsUp 34s linear infinite 14s; }
+.butterfly-anim { animation: butterflyDrift 10s ease-in-out infinite alternate; }
+.halo-pulse { animation: shimmerHalo 3.5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Claymorphism card */
+.clay-card {
+  background: #FFFFFF;
+  border-radius: 2.25rem;
+  box-shadow:
+    0 20px 40px -15px rgba(26, 86, 160, 0.18),
+    0 0 0 3px rgba(255, 255, 255, 0.9) inset,
+    0 -6px 12px rgba(200, 225, 255, 0.3) inset;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Clay input wrapper */
+.clay-input-wrapper {
+  background: #F4F9FF;
+  border-radius: 1.25rem;
+  border: 2px solid #E2EDFA;
+  box-shadow: 0 4px 10px rgba(0, 70, 150, 0.05) inset;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.clay-input-wrapper:focus-within {
+  background: #FFFFFF;
+  border-color: #4FC3F7;
+  box-shadow: 0 0 0 4px rgba(79, 195, 247, 0.25), 0 2px 6px rgba(79, 195, 247, 0.1) inset;
+  transform: translateY(-1px);
+}
+
+/* 3D Coral Push Button */
+.btn-3d-coral {
+  background-color: #FF7043;
+  box-shadow: 0 6px 0 0 #D84315, 0 12px 20px rgba(255, 112, 67, 0.35);
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-3d-coral:hover:not(:disabled) {
+  background-color: #FF7E54;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 0 #D84315, 0 16px 24px rgba(255, 112, 67, 0.4);
+}
+.btn-3d-coral:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 0 #D84315, 0 6px 10px rgba(255, 112, 67, 0.3);
+}
+.btn-3d-coral:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Pill (badge / botón de sonido) */
+.pill-pill {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(10, 60, 120, 0.08), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Confeti cayendo */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(115vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-sway {
+  0%, 100% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateX(35px) rotate(20deg);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.03);
+  }
+}
+
+@keyframes pulse-halo {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.8;
+  }
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.25) rotate(18deg);
+    opacity: 1;
+  }
+}
+
+.bounce-gentle {
+  animation: bounce-gentle 3.2s ease-in-out infinite;
+}
+
+.pulse-halo {
+  animation: pulse-halo 3.5s ease-in-out infinite;
+}
+
+/* Animación del pop-up de logro */
+@keyframes achievement-pop {
+  0% {
+    transform: scale(0.5) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* Animaciones de pájaros */
+@keyframes bird-fly {
+  0% { transform: translateX(0) translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(100vw) translateY(-30px); opacity: 0; }
+}
+
+/* Animaciones de murciélagos */
+@keyframes bat-fly {
+  0% { transform: translateX(0) translateY(0) scaleX(1); opacity: 0; }
+  10% { opacity: 1; }
+  45% { transform: translateX(50vw) translateY(-40px) scaleX(1); }
+  50% { transform: translateX(50vw) translateY(-40px) scaleX(-1); }
+  90% { opacity: 1; }
+  100% { transform: translateX(100vw) translateY(0) scaleX(-1); opacity: 0; }
+}
+
+/* Animación del conejo */
+@keyframes hop-across {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(100vw); }
+}
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Estrellas fugaces */
+@keyframes shooting-star {
+  0% { transform: translate(0, 0) rotate(-45deg); opacity: 0; }
+  10% { opacity: 1; }
+  30% { transform: translate(300px, 300px) rotate(-45deg); opacity: 0; }
+  100% { transform: translate(300px, 300px) rotate(-45deg); opacity: 0; }
+}
+
+/* Luciérnagas */
+@keyframes firefly {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  25% { transform: translate(20px, -15px); opacity: 1; }
+  50% { transform: translate(-10px, -30px); opacity: 0.6; }
+  75% { transform: translate(15px, -20px); opacity: 1; }
+}
+
+/* Búho meciéndose */
+@keyframes sway-slow {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
