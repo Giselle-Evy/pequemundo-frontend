@@ -1,4 +1,3 @@
-import { getEmojiForOption } from '../../data/emojis';
 
 interface RetryFeedbackProps {
   explanation: string;
