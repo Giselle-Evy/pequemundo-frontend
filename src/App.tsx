@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ChildProvider } from './contexts/ChildContext';
+import { MusicProvider } from './contexts/MusicProvider';
+
 import Games from './pages/child/Games';
 import MemoryGamePage from './pages/child/MemoryGamePage';
 
@@ -30,73 +32,82 @@ import AdminExercises from './pages/admin/AdminExercises';
 import AdminUsers from './pages/admin/AdminUsers';
 import WordSearchGamePage from './pages/child/WordSearchGamePage';
 import Shop from './pages/child/Shop';
+
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
         <ChildProvider>
-          <BrowserRouter>
-            <Routes>
-              {/* Rutas públicas */}
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+          <MusicProvider>
+            <BrowserRouter>
+              <Routes>
+                {/* Rutas públicas */}
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-              {/* Rutas de tutor */}
-              <Route path="/children" element={<SelectChild />} />
-              <Route path="/children/new" element={<CreateChild />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/subjects/:id" element={<SubjectDetail />} />
-              <Route path="/achievements" element={<Achievements />} />
-              <Route path="/ranking" element={<Ranking />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route
-                path="/subjects/:id/exercises/:exerciseId"
-                element={<ExercisePlay />}
-              />
-              <Route path="/subjects/:id/complete" element={<SubjectComplete />} />
-              <Route path="/parent" element={<ParentPanel />} />
-              <Route path="/parent/child/:id" element={<ChildDetail />} />
-              <Route path="/games" element={<Games />} />
-              <Route path="/games/memory" element={<MemoryGamePage />} />
-              <Route path="/games/stars" element={<StarsGamePage />} />
-              <Route path="/games/wordsearch" element={<WordSearchGamePage />} />
+                {/* Rutas de tutor */}
+                <Route path="/children" element={<SelectChild />} />
+                <Route path="/children/new" element={<CreateChild />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/subjects/:id" element={<SubjectDetail />} />
+                <Route path="/achievements" element={<Achievements />} />
+                <Route path="/ranking" element={<Ranking />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route
+                  path="/subjects/:id/exercises/:exerciseId"
+                  element={<ExercisePlay />}
+                />
+                <Route
+                  path="/subjects/:id/complete"
+                  element={<SubjectComplete />}
+                />
+                <Route path="/parent" element={<ParentPanel />} />
+                <Route path="/parent/child/:id" element={<ChildDetail />} />
+                <Route path="/games" element={<Games />} />
+                <Route path="/games/memory" element={<MemoryGamePage />} />
+                <Route path="/games/stars" element={<StarsGamePage />} />
+                <Route
+                  path="/games/wordsearch"
+                  element={<WordSearchGamePage />}
+                />
 
-              {/* Rutas admin */}
-              <Route
-                path="/admin"
-                element={
-                  <AdminLayout>
-                    <AdminDashboard />
-                  </AdminLayout>
-                }
-              />
-              <Route
-                path="/admin/subjects"
-                element={
-                  <AdminLayout>
-                    <AdminSubjects />
-                  </AdminLayout>
-                }
-              />
-              <Route
-                path="/admin/exercises"
-                element={
-                  <AdminLayout>
-                    <AdminExercises />
-                  </AdminLayout>
-                }
-              />
-              <Route
-                path="/admin/users"
-                element={
-                  <AdminLayout>
-                    <AdminUsers />
-                  </AdminLayout>
-                }
-              />
-            </Routes>
-          </BrowserRouter>
+                {/* Rutas admin */}
+                <Route
+                  path="/admin"
+                  element={
+                    <AdminLayout>
+                      <AdminDashboard />
+                    </AdminLayout>
+                  }
+                />
+                <Route
+                  path="/admin/subjects"
+                  element={
+                    <AdminLayout>
+                      <AdminSubjects />
+                    </AdminLayout>
+                  }
+                />
+                <Route
+                  path="/admin/exercises"
+                  element={
+                    <AdminLayout>
+                      <AdminExercises />
+                    </AdminLayout>
+                  }
+                />
+                <Route
+                  path="/admin/users"
+                  element={
+                    <AdminLayout>
+                      <AdminUsers />
+                    </AdminLayout>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+          </MusicProvider>
         </ChildProvider>
       </AuthProvider>
     </ThemeProvider>

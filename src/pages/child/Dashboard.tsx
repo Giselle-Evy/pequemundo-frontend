@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from '../../components/layout/AnimatedBackground';
 import SubjectCard from '../../components/ui/SubjectCard';
 import AchievementBadge from '../../components/ui/AchievementBadge';
+import SoundToggle from '../../components/ui/SoundToggle';
 import ProgressBar from '../../components/ui/ProgressBar';
 import { useChild } from '../../contexts/ChildContext';
 import { getChildProgress } from '../../services/progress';
@@ -11,11 +12,13 @@ import ChildAvatar from '../../components/ui/ChildAvatar';
 import type { ChildProgress, Achievement } from '../../types';
 import ThemeToggle from '../../components/ui/ThemeToggle';
 import { useTheme } from '../../hooks/useTheme';
+ import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { child, clearChild } = useChild();
   const { isNight } = useTheme();
+  const { isPlaying, toggle } = useBackgroundMusic();
 
   const [progress, setProgress] = useState<ChildProgress | null>(null);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
@@ -56,6 +59,7 @@ export default function Dashboard() {
       </div>
     );
   }
+
   const earnedCount = achievements.filter((a) => a.earned).length;
 
   function handleChangeChild() {
@@ -69,13 +73,13 @@ export default function Dashboard() {
 
   return (
     <div
-  className="min-h-screen font-nunito flex flex-col relative overflow-x-hidden"
-  style={{
-    background: isNight
-      ? 'linear-gradient(180deg, #1A1B4B 0%, #2D1B69 40%, #4A2C7A 70%, #1E1B4B 100%)'
-      : 'linear-gradient(180deg, #70D6FF 0%, #BBE7FE 40%, #FFF3C4 85%, #FEF9E7 100%)',
-  }}
->
+      className="min-h-screen font-nunito flex flex-col relative overflow-x-hidden"
+      style={{
+        background: isNight
+          ? 'linear-gradient(180deg, #1A1B4B 0%, #2D1B69 40%, #4A2C7A 70%, #1E1B4B 100%)'
+          : 'linear-gradient(180deg, #70D6FF 0%, #BBE7FE 40%, #FFF3C4 85%, #FEF9E7 100%)',
+      }}
+    >
       <AnimatedBackground />
 
       {/* Header */}
@@ -94,24 +98,29 @@ export default function Dashboard() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-        <button
-          type="button"
-          onClick={() => navigate('/parent')}
-          className="pill-pill px-3 py-2 flex items-center gap-2 text-xs sm:text-sm font-bold text-[#286B33] hover:text-[#003D12] transition"
-          title="Zona Padres"
-        >
-          <span className="text-base">🛡️</span>
-          <span className="hidden sm:inline">Zona Padres</span>
-        </button>
-        <button
-          type="button"
-          onClick={handleChangeChild}
-          className="pill-pill px-3 py-2 flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-rose-600 transition"
-        >
-          <img alt="icono de salir" style={{ width: '20px', height: '20px' }} src="/images/cambiar.png" />
-          <span className="hidden sm:inline">Cambiar perfil</span> 
-        </button>
-      </div>
+          <SoundToggle isPlaying={isPlaying} onToggle={toggle} />
+          <button
+            type="button"
+            onClick={() => navigate('/parent')}
+            className="pill-pill px-3 py-2 flex items-center gap-2 text-xs sm:text-sm font-bold text-[#286B33] hover:text-[#003D12] transition"
+            title="Zona Padres"
+          >
+            <span className="text-base">🛡️</span>
+            <span className="hidden sm:inline">Zona Padres</span>
+          </button>
+          <button
+            type="button"
+            onClick={handleChangeChild}
+            className="pill-pill px-3 py-2 flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-rose-600 transition"
+          >
+            <img
+              alt="icono de salir"
+              style={{ width: '20px', height: '20px' }}
+              src="/images/cambiar.png"
+            />
+            <span className="hidden sm:inline">Cambiar perfil</span>
+          </button>
+        </div>
       </header>
 
       {/* Contenido */}
@@ -175,14 +184,15 @@ export default function Dashboard() {
                 <button
                   type="button"
                   onClick={() => {
-                    const firstPending = progress?.subjects.find((s) => s.completed < s.total);
+                    const firstPending = progress?.subjects.find(
+                      (s) => s.completed < s.total
+                    );
                     if (firstPending) handlePlaySubject(firstPending.subject_id);
                   }}
                   disabled={loading}
                   className="w-full btn-3d-coral text-white font-baloo font-extrabold text-xl py-4 px-6 rounded-2xl flex items-center justify-center gap-3 cursor-pointer focus:outline-none focus:ring-4 focus:ring-orange-300"
                 >
                   <span>{loading ? 'Cargando...' : '¡Continuar aprendiendo!'}</span>
-                  
                 </button>
               </div>
             </div>
@@ -219,12 +229,12 @@ export default function Dashboard() {
                     bgLight={`${subject.color || '#AC3509'}33`}
                     onPlay={() => handlePlaySubject(subject.subject_id)}
                   />
-))}
+                ))}
               </div>
             )}
           </section>
 
-                    {/* Accesos rápidos */}
+          {/* Accesos rápidos */}
           <section className="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <button
               type="button"
@@ -250,9 +260,7 @@ export default function Dashboard() {
                 🏆
               </div>
               <div>
-                <p className="text-lg font-black text-[#2C160E]">
-                  Mis logros
-                </p>
+                <p className="text-lg font-black text-[#2C160E]">Mis logros</p>
                 <p className="text-xs font-bold text-[#59413A]">
                   {earnedCount} de {achievements.length} conseguidos
                 </p>
@@ -268,9 +276,7 @@ export default function Dashboard() {
                 🏅
               </div>
               <div>
-                <p className="text-lg font-black text-[#2C160E]">
-                  Ranking
-                </p>
+                <p className="text-lg font-black text-[#2C160E]">Ranking</p>
                 <p className="text-xs font-bold text-[#59413A]">
                   ¡Mira quién va ganando!
                 </p>
@@ -313,7 +319,6 @@ export default function Dashboard() {
               </div>
             </button>
           </section>
-
 
           {/* Logros */}
           <section className="clay-card p-6 sm:p-8 space-y-4">

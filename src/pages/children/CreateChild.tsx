@@ -6,7 +6,7 @@ import SoundToggle from '../../components/ui/SoundToggle';
 import ClayLogo from '../../components/ui/ClayLogo';
 import ThemeToggle from '../../components/ui/ThemeToggle';
 import { useChild } from '../../contexts/ChildContext';
-import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
+ import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 import { useTheme } from '../../hooks/useTheme';
 import { createChild } from '../../services/children';
 import { AVATAR_OPTIONS } from '../../data/avatars';

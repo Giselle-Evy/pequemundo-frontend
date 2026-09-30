@@ -8,7 +8,7 @@ import PequeMundoWordmark from '../../components/ui/PequeMundoWordmark';
 import ClayInput from '../../components/ui/ClayInput';
 import ThemeToggle from '../../components/ui/ThemeToggle';
 import { useAuth } from '../../contexts/AuthContext';
-import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
+ import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 import { useTheme } from '../../hooks/useTheme';
 
 export default function Register() {

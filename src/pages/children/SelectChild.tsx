@@ -8,7 +8,7 @@ import CreateChildCard from '../../components/ui/CreateChildCard';
 import ThemeToggle from '../../components/ui/ThemeToggle';
 import { useAuth } from '../../contexts/AuthContext';
 import { useChild } from '../../contexts/ChildContext';
-import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
+ import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 import { useTheme } from '../../hooks/useTheme';
 import { getChildren } from '../../services/children';
 import type { Child } from '../../types';
